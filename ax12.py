@@ -140,7 +140,7 @@ class Ax12:
 
     def __init__(self):
         if(Ax12.port == None):
-            Ax12.port = Serial("/dev/ttyS0", baudrate=1000000, timeout=0.001)
+            Ax12.port = Serial("/dev/ttyTHS2", baudrate=1000000, timeout=0.001)
         if(not Ax12.gpioSet):
             # GPIO.setwarnings(False)
             # GPIO.setmode(GPIO.BCM)
@@ -173,8 +173,9 @@ class Ax12:
     def readData(self,id):
         self.direction(Ax12.DIRECTION_RX)
         reply = Ax12.port.read(5) # [0xff, 0xff, origin, length, error]
+
         try:
-            assert ord(reply[0]) == 0xFF
+            assert len(reply) == 5 and ord(reply[0]) == 0xFF
         except:
             e = "Timeout on servo " + str(id)
             raise Ax12.timeoutError(e)

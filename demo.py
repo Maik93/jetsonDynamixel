@@ -9,7 +9,7 @@ from random import randint
 from ax12 import Ax12
 
 
-N_MOTORS = 18
+N_MOTORS = 1
 
 
 # check user privileges
@@ -61,7 +61,11 @@ if __name__ == "__main__":
                     mServos.setLedStatus(motorId, 1)
                 else:
                     mServos.setLedStatus(motorId, 0)
-            except Ax12.timeoutError as e: pass
+            except Ax12.timeoutError as e:
+                # something as gone wrong reading the reply,
+                # think about resending the command
+                print e
+                pass
 
             sleep(0.05)  # seconds
 
