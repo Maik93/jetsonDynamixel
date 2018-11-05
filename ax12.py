@@ -138,9 +138,9 @@ class Ax12:
     port = None
     gpioSet = False
 
-    def __init__(self):
+    def __init__(self, baud_rate=1000000):
         if(Ax12.port == None):
-            Ax12.port = Serial("/dev/ttyTHS2", baudrate=1000000, timeout=0.001)
+            Ax12.port = Serial("/dev/ttyTHS2", baudrate=baud_rate, timeout=0.001)
         if(not Ax12.gpioSet):
             # GPIO.setwarnings(False)
             # GPIO.setmode(GPIO.BCM)
