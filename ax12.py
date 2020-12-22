@@ -178,14 +178,14 @@ class Ax12:
         reply = Ax12.port.read(5)  # [0xff, 0xff, origin, length, error]
 
         try:
-            assert len(reply) == 5 and ord(reply[0]) == 0xFF
+            assert len(reply) == 5 and reply[0] == 0xFF
         except:
             e = "Timeout on servo " + str(id)
             raise Ax12.timeoutError(e)
 
         try:
-            length = ord(reply[3]) - 2
-            error = ord(reply[4])
+            length = reply[3] - 2
+            error = reply[4]
 
             if(error != 0):
                 print("Error from servo " + str(id) + ": " + Ax12.dictErrors[error] + ' (code  ' + hex(error) + ')')
@@ -196,10 +196,10 @@ class Ax12:
             else:
                 if(length > 1):
                     reply = Ax12.port.read(2)
-                    returnValue = (ord(reply[1]) << 8) + (ord(reply[0]) << 0)
+                    returnValue = (reply[1] << 8) + (reply[0] << 0)
                 else:
                     reply = Ax12.port.read(1)
-                    returnValue = ord(reply[0])
+                    returnValue = reply[0]
                 return returnValue
         except Exception as detail:
             raise Ax12.axError(detail)
