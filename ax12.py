@@ -188,7 +188,7 @@ class Ax12:
             error = ord(reply[4])
 
             if(error != 0):
-                print "Error from servo " + str(id) + ": " + Ax12.dictErrors[error] + ' (code  ' + hex(error) + ')'
+                print("Error from servo " + str(id) + ": " + Ax12.dictErrors[error] + ' (code  ' + hex(error) + ')')
                 return -error
             # just reading error bit
             elif(length == 0):
@@ -201,7 +201,7 @@ class Ax12:
                     reply = Ax12.port.read(1)
                     returnValue = ord(reply[0])
                 return returnValue
-        except Exception, detail:
+        except Exception as detail:
             raise Ax12.axError(detail)
 
     def ping(self, id):
@@ -233,7 +233,7 @@ class Ax12:
             sleep(Ax12.TX_DELAY_TIME)
             return self.readData(id)
         else:
-            print "nothing done, please send confirm = True as this fuction reset to the factory default value, i.e reset the motor ID"
+            print("nothing done, please send confirm = True as this fuction reset to the factory default value, i.e reset the motor ID")
             return
 
     def setID(self, id, newId):
@@ -712,12 +712,12 @@ class Ax12:
                 temp = self.ping(i)
                 servoList.append(i)
                 if verbose:
-                    print "Found servo #" + str(i)
+                    print("Found servo #" + str(i))
                 time.sleep(0.1)
 
-            except Exception, detail:
+            except Exception as detail:
                 if verbose:
-                    print "Error pinging servo #" + str(i) + ': ' + str(detail)
+                    print("Error pinging servo #" + str(i) + ': ' + str(detail))
                 pass
         return servoList
 
@@ -728,7 +728,7 @@ class Ax12:
 #    '''
 #    infile=open(Arguments.playpose, 'r')    # Open the file
 #    poseDict = {}                           # Dictionary to hold poses and positions
-#    if Arguments.verbose : print "Reading pose from", Arguments.playpose
+#    if Arguments.verbose: print("Reading pose from", Arguments.playpose)
 #    for line in infile.readlines() :        # Read the file and step through it
 #        servo = int(line.split(':')[0])     # Servo is first
 #        position = int(line.split(':')[1])  # Position is second
@@ -744,17 +744,16 @@ class Ax12:
 #    '''
 #    of = open(Arguments.savepose, 'w')      # open the output file
 #    pose = getPose2(connectedServos)        # get the positions
-#    if Arguments.verbose :
-#        print "Servo Positions"
-#        print "---------------"
+#    if Arguments.verbose:
+#        print("Servo Positions")
+#        print("---------------")
 #
-#    for key in  pose.keys():                # step through the keys, writing to the file
-#        if Arguments.verbose : print "Servo " + str(key), pose[key]
+#    for key in pose.keys():                # step through the keys, writing to the file
+#        if Arguments.verbose: print("Servo " + str(key), pose[key])
 #        of.write(str(key) + ':' + str(pose[key]) + '\n')    # Write to the file
 #
-#    if Arguments.verbose :
-#        print "Wrote pose to " + Arguments.savepose
-#        print
+#    if Arguments.verbose:
+#        print("Wrote pose to " + Arguments.savepose)
 #
 #    of.close()      # close the file
 #

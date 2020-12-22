@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 
 import os
 from sys import argv, path, exit
@@ -37,14 +37,13 @@ if __name__ == "__main__":
     mServos = Ax12()
 
     for motorId in range(1, N_MOTORS+1):
-        # print "Actual position: " + str(mServos.readPosition(motorId))
-        print "I: [ID " + str(motorId) + "] Setting motor velocity to a quarter"
+        # print("Actual position: " + str(mServos.readPosition(motorId)))
+        print("I: [ID " + str(motorId) + "] Setting motor velocity to a quarter")
 
         try:
             mServos.moveSpeed(motorId, 512, 256)
         except Ax12.timeoutError as e:
-            # print e
-            print "W: Motor " + str(motorId) + " seems to be unreachable"
+            print("W: Motor " + str(motorId) + " seems to be unreachable")
             pass
 
     while 1:
@@ -54,8 +53,8 @@ if __name__ == "__main__":
                     next_pos_deg = randint(-150, 150)  # positive counterclockwise
                     next_pos_bin = deg2bin(next_pos_deg)
 
-                    print "I: [ID " + str(motorId) + "] Going at " \
-                        + str(next_pos_deg) + " degrees"
+                    print("I: [ID " + str(motorId) + "] Going at " \
+                        + str(next_pos_deg) + " degrees")
 
                     mServos.move(motorId, next_pos_bin)
                     mServos.setLedStatus(motorId, 1)
@@ -64,7 +63,7 @@ if __name__ == "__main__":
             except Ax12.timeoutError as e:
                 # something as gone wrong reading the reply,
                 # think about resending the command
-                print e
+                print(e)
                 pass
 
             sleep(0.05)  # seconds
@@ -77,10 +76,10 @@ if __name__ == "__main__":
     #         try:
     #             mServos.setID(i, motorId)
     #         except:
-    #             print "error resetting id from "+str(i)+" to "+str(motorId)
+    #             print("error resetting id from "+str(i)+" to "+str(motorId))
     #         else:
-    #             print "set id to "+str(motorId)
+    #             print("set id to "+str(motorId))
     #             exit(1)
     # else:
-    #     print "ERROR"
-    #     print "usage: python setMotorId motorNumber"
+    #     print("ERROR")
+    #     print("usage: python setMotorId motorNumber")
